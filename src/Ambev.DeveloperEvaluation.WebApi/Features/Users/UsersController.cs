@@ -80,6 +80,7 @@ public class UsersController : BaseController
             return BadRequest(validationResult.Errors);
 
         var command = _mapper.Map<GetUserCommand>(request.Id);
+
         var response = await _mediator.Send(command, cancellationToken);
 
         return Ok(new ApiResponseWithData<GetUserResponse>
