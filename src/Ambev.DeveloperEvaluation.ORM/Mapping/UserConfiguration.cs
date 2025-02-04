@@ -12,7 +12,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(u => u.Id);
         builder.Property(u => u.Id)
             .HasColumnType("uuid")
-            .HasDefaultValueSql("uuid_generate_v4()");
+            .HasDefaultValueSql("uuid_generate_v4()")
+            .HasColumnName("id");
 
         builder.Property(u => u.Username)
             .IsRequired()
