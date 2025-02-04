@@ -13,7 +13,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .HasColumnType("uuid")
-                .HasDefaultValueSql("uuid_generate_v4()");
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
 
             builder.Property(x => x.Name)
                 .HasColumnName("name")
