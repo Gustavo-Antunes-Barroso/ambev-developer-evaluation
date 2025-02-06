@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 {
     public class CreateSaleHandler(ISaleRepository saleRepository, IUserRepository userRepository,
         IProductRepository productRepository, ISubsidiaryRepository subsidiaryRepository,
-        ISaleProductRepository saleProductRepository,IMapper mapper)
+        ISaleProductRepository saleProductRepository, IMapper mapper)
         : IRequestHandler<CreateSaleCommand, CreateSaleResult>
     {
         private readonly ISaleRepository _saleRepository = saleRepository;

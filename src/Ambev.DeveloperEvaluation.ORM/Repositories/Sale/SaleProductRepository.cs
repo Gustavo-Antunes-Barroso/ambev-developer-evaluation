@@ -35,6 +35,18 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
             return true;
         }
 
+        public async Task<bool> DeleteBySaleIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            SaleProduct? saleProduct = await _context.SaleProducts.FirstOrDefaultAsync(x => x.SaleId == id);
+
+            if (saleProduct is null)
+                return false;
+
+            _context.SaleProducts.Remove(saleProduct);
+            _context.SaveChanges();
+            return true;
+        }
+
         public async Task<IList<SaleProduct>?> GetAllAsync(int page, int quantity, CancellationToken cancellationToken = default)
         {
             return await _context.SaleProducts

@@ -76,6 +76,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
         }
         #endregion
 
+        //TODO: Separar repositorios
         #region<<<MongoDb>>>
         public async Task<domainEntity.Sale> MongoDbCreateAsync(domainEntity.Sale obj, CancellationToken cancellationToken = default)
         {
@@ -85,21 +86,21 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
 
         public async Task<domainEntity.Sale> MongoDbUpdateAsync(domainEntity.Sale obj, CancellationToken cancellationToken = default)
         {
-            var filter = Builders<domainEntity.Sale>.Filter.Eq("id", obj.Id);
+            var filter = Builders<domainEntity.Sale>.Filter.Eq("_id", obj.Id);
             await _collection.ReplaceOneAsync(filter, obj);
             return obj;
         }
 
-        public async Task<domainEntity.Sale> MongoDbDeleteAsync(domainEntity.Sale obj, CancellationToken cancellationToken = default)
+        public async Task<bool> MongoDbDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var filter = Builders<domainEntity.Sale>.Filter.Eq("id", obj.Id);
+            var filter = Builders<domainEntity.Sale>.Filter.Eq("_id", id);
             await _collection.DeleteOneAsync(filter, cancellationToken);
-            return obj;
+            return true;
         }
 
-        public domainEntity.Sale MongoDbGet(Guid id, CancellationToken cancellationToken = default)
+        public domainEntity.Sale MongoDbGet(string id, CancellationToken cancellationToken = default)
         {
-            var filter = Builders<domainEntity.Sale>.Filter.Eq("id", id);
+            var filter = Builders<domainEntity.Sale>.Filter.Eq("_id", id);
             return (domainEntity.Sale)_collection.Find(filter);
         }
 

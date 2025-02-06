@@ -1,6 +1,8 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
 using AutoMapper;
 using static Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale.CreateSaleResponse;
 
@@ -10,6 +12,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.Mapping
     {
         public SaleProfile()
         {
+            //Create Sale
             CreateMap<CreateSaleRequest, CreateSaleCommand>();
             CreateMap<CreateSaleProductsRequest, CreateSaleProductsCommand>();
             CreateMap<Sale, CreateSaleResult>();
@@ -22,6 +25,9 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.Mapping
             CreateMap<CreateSaleProductResult, CreateSaleProductResponse>();
             CreateMap<CreateSaleSubsidiaryResult, CreateSaleSubsidiaryResponse>();
             CreateMap<CreateSaleCustomerResult, CreateSaleCustomerResponse>();
+
+            //Delete Sale
+            CreateMap<DeleteSaleRequest, DeleteSaleCommand>();
         }
     }
 }
