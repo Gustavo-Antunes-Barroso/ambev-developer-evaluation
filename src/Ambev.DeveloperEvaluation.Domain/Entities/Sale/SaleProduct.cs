@@ -1,12 +1,16 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Util;
 using Ambev.DeveloperEvaluation.Domain.Common;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
 {
     public class SaleProduct : BaseEntity
     {
+        [BsonRepresentation(BsonType.String)]
         public Guid SaleId { get; set; }
+        [BsonRepresentation(BsonType.String)]
         public Guid ProductId { get; set; }
         public string Name { get; set; } = string.Empty;
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]

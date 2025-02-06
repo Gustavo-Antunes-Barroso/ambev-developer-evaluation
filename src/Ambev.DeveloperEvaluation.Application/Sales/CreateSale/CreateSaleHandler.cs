@@ -154,6 +154,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
             SaleProduct[] saleProductsResult = await _saleProductRepository.CreateManyAsync(sale.Products, cancellationToken);
 
             saleResult.SetProducts(saleProductsResult);
+            await _saleRepository.MongoDbCreateAsync(saleResult, cancellationToken);
             return _mapper.Map<CreateSaleResult>(saleResult);
         }
     }

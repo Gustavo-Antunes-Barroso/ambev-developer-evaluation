@@ -1,5 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Util;
 using Ambev.DeveloperEvaluation.Domain.Common;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
@@ -7,6 +9,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
     public class Sale : BaseEntity
     {
         public DateTime CreatedAt { get; set; }
+        [BsonRepresentation(BsonType.String)]
         public Guid CustomerId { get; set; }
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]
         public decimal TotalAmount { get; private set; }
@@ -15,6 +18,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
         [RegularExpression(@"^(0|-?\d{0,3}(\.\d{0,2})?)$")]
         public decimal Discount {  get; set; } = 0;
         public bool Canceled { get; set; }
+        [BsonRepresentation(BsonType.String)]
         public Guid SubsidiaryId { get; set; }
         public SaleProduct[] Products { get; private set; } = new SaleProduct[0];
         public SaleCustomer Customer { get; private set; } = new();
