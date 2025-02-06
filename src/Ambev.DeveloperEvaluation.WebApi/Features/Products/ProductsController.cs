@@ -10,7 +10,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController(IMediator mediator, IMapper mapper) : ControllerBase
+    public class ProductsController(IMediator mediator, IMapper mapper) : BaseController
     {
         private readonly IMediator _mediator = mediator;
         private readonly IMapper _mapper = mapper;
