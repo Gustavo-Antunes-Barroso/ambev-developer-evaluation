@@ -2,6 +2,9 @@
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
+using AutoMapper;
+using System;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
 {
@@ -9,12 +12,14 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
     {
         private readonly DefaultContext _context;
         private readonly IMongoClient _mongoClient;
+        private readonly IMapper _mapper;
         private IMongoCollection<domainEntity.Sale> _collection;
 
-        public SaleRepository(DefaultContext context, IMongoClient mongoClient)
+        public SaleRepository(DefaultContext context, IMongoClient mongoClient, IMapper mapper)
         {
             _context = context;
             _mongoClient = mongoClient;
+            _mapper = mapper;
             _collection = _mongoClient.GetDatabase("Ambev").GetCollection<domainEntity.Sale>(nameof(domainEntity.Sale));
         }
         #region <<<Postgres>>>
@@ -64,6 +69,31 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
             return await _context.Sales.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
+        public async Task<domainEntity.Sale?> GetCompleteSaleByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await (from s in _context.Sales
+                                join sp in _context.SaleProducts on s.Id equals sp.SaleId into p
+                                join sb in _context.Subsidiaries on s.SubsidiaryId equals sb.Id
+                                join u in _context.Users on s.CustomerId equals u.Id
+                                where s.Id == id
+                                select new domainEntity.Sale
+                                {
+                                    Id = s.Id,
+                                    Discount = s.Discount,
+                                    SubsidiaryId = sb.Id,
+                                    CustomerId = u.Id,
+                                    Canceled = s.Canceled,
+                                    CreatedAt = s.CreatedAt,
+                                    TotalAmount = s.TotalAmount,
+                                    TotalAmountWithDiscount = s.TotalAmountWithDiscount
+                                }
+                                .SetSubsidiary(_mapper.Map<SaleSubsidiary>(sb))
+                                .SetProducts(_mapper.Map<SaleProduct[]>(p))
+                                .SetCustomer(_mapper.Map<SaleCustomer>(u))
+                                ).FirstOrDefaultAsync();
+            return result;
+        }
+
         public async Task<bool> CancelSaleAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var sale = await GetByIdAsync(id, cancellationToken);
@@ -98,10 +128,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
             return true;
         }
 
-        public domainEntity.Sale MongoDbGet(string id, CancellationToken cancellationToken = default)
+        public async Task<domainEntity.Sale> MongoDbGetAsync(string id, CancellationToken cancellationToken = default)
         {
             var filter = Builders<domainEntity.Sale>.Filter.Eq("_id", id);
-            return (domainEntity.Sale)_collection.Find(filter);
+            var result = await _collection.Find(filter).FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task<IList<domainEntity.Sale>> MongoDbGetAllAsync(CancellationToken cancellationToken = default)

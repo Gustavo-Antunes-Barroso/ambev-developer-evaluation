@@ -55,6 +55,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
                 .ToListAsync(cancellationToken);
         }
 
+        public async Task<SaleProduct[]> GetBySaleIdAsync(Guid id, CancellationToken cancellationToken = default)
+            => await _context.SaleProducts.Where(x => x.SaleId == id).ToArrayAsync(cancellationToken);
+
         public async Task<SaleProduct?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
             => await _context.SaleProducts.FirstOrDefaultAsync(x => x.Id == id);
 

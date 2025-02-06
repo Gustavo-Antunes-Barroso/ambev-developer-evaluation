@@ -1,8 +1,9 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
-using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 using AutoMapper;
 using static Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale.CreateSaleResponse;
 
@@ -12,22 +13,24 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.Mapping
     {
         public SaleProfile()
         {
-            //Create Sale
+            #region<<<RequestToCommand>>>
             CreateMap<CreateSaleRequest, CreateSaleCommand>();
             CreateMap<CreateSaleProductsRequest, CreateSaleProductsCommand>();
-            CreateMap<Sale, CreateSaleResult>();
+            CreateMap<DeleteSaleRequest, DeleteSaleCommand>();
+            CreateMap<GetSaleRequest, GetSaleCommand>();
+            #endregion
 
-            CreateMap<SaleProduct, CreateSaleProductResult>();
-            CreateMap<SaleSubsidiary, CreateSaleSubsidiaryResult>();
-            CreateMap<SaleCustomer, CreateSaleCustomerResult>();
-
+            #region<<<ResultToResponse>>>
             CreateMap<CreateSaleResult, CreateSaleResponse>();
             CreateMap<CreateSaleProductResult, CreateSaleProductResponse>();
             CreateMap<CreateSaleSubsidiaryResult, CreateSaleSubsidiaryResponse>();
             CreateMap<CreateSaleCustomerResult, CreateSaleCustomerResponse>();
 
-            //Delete Sale
-            CreateMap<DeleteSaleRequest, DeleteSaleCommand>();
+            CreateMap<GetSaleResult, GetSaleResponse>();
+            CreateMap<GetSaleProductResult, GetSaleProductResponse>();
+            CreateMap<GetSaleSubsidiaryResult, GetSaleSubsidiaryResponse>();
+            CreateMap<GetSaleCustomerResult, GetSaleCustomerResponse>();
+            #endregion
         }
     }
 }

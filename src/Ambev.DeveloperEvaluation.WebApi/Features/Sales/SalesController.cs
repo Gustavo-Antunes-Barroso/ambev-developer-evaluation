@@ -1,8 +1,10 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
@@ -44,13 +46,24 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSaleByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken) 
         {
-            throw new NotImplementedException();
+            GetSaleRequest request = new GetSaleRequest() { Id = id};
+            GetSaleRequestValidator validator = new();
+            ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var command = _mapper.Map<GetSaleCommand>(request);
+            var result = await _mediator.Send(command);
+
+            var response = _mapper.Map<GetSaleResponse>(result);
+            return Ok(response);
         }
 
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteSaleAsync([FromRoute] Guid Id, CancellationToken cancellationToken) 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSaleAsync([FromRoute] Guid id, CancellationToken cancellationToken) 
         {
-            DeleteSaleRequest request = new DeleteSaleRequest() { Id = Id};
+            DeleteSaleRequest request = new DeleteSaleRequest() { Id = id };
             DeleteSaleRequestValidator validator = new();
             ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken); 
 

@@ -6,12 +6,12 @@ using MediatR;
 namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale
 {
     public class DeleteSaleHandler(ISaleRepository saleRepository, ISaleProductRepository saleProductRepository)
-        : IRequestHandler<DeleteSaleCommand, DeleteSaleResponse>
+        : IRequestHandler<DeleteSaleCommand, DeleteSaleResult>
     {
         private readonly ISaleRepository _saleRepository = saleRepository;
         private readonly ISaleProductRepository _saleProductRepository = saleProductRepository;
 
-        public async Task<DeleteSaleResponse> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteSaleResult> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
         {
             DeleteSaleCommandValidator commandValidator = new();
             ValidationResult validationResult = await commandValidator.ValidateAsync(request, cancellationToken);
@@ -22,7 +22,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale
             await _saleRepository.MongoDbDeleteAsync(request.Id.ToString(), cancellationToken);
             await DeleteSaleFromPostegres(request.Id, cancellationToken);
 
-            return new DeleteSaleResponse { Sucess = true };
+            return new DeleteSaleResult { Sucess = true };
         }
         private async Task DeleteSaleFromPostegres(Guid id, CancellationToken cancellationToken)
         {

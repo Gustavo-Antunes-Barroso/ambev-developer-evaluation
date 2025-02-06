@@ -12,9 +12,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
         [BsonRepresentation(BsonType.String)]
         public Guid CustomerId { get; set; }
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]
-        public decimal TotalAmount { get; private set; }
+        public decimal TotalAmount { get; set; }
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]
-        public decimal TotalAmountWithDiscount { get; private set; }
+        public decimal TotalAmountWithDiscount { get; set; }
         [RegularExpression(@"^(0|-?\d{0,3}(\.\d{0,2})?)$")]
         public decimal Discount {  get; set; } = 0;
         public bool Canceled { get; set; }
