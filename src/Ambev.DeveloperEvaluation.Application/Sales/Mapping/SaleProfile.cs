@@ -1,5 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
-using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+using Ambev.DeveloperEvaluation.Application.Shared.Commands;
+using Ambev.DeveloperEvaluation.Application.Shared.Results;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using AutoMapper;
@@ -10,7 +11,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.Mapping
     {
         public SaleProfile()
         {
-            CreateMap<CreateSaleCommand, Sale>()
+            CreateMap<UpsertSaleCommand, Sale>()
                 .ForMember(x => x.Products, opt => opt.Ignore());
             CreateMap<User, SaleCustomer>();
             CreateMap<Subsidiary, SaleSubsidiary>();
@@ -19,10 +20,10 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.Mapping
                 .ForMember(x => x.Id, opt => opt.Ignore());
 
             #region<<<EntityToResult>>>
-            CreateMap<Sale, CreateSaleResult>();
-            CreateMap<SaleProduct, CreateSaleProductResult>();
-            CreateMap<SaleSubsidiary, CreateSaleSubsidiaryResult>();
-            CreateMap<SaleCustomer, CreateSaleCustomerResult>();
+            CreateMap<Sale, UpsertSaleResult>();
+            CreateMap<SaleProduct, UpsertSaleProductResult>();
+            CreateMap<SaleSubsidiary, UpsertSaleSubsidiaryResult>();
+            CreateMap<SaleCustomer, UpsertSaleCustomerResult>();
 
             CreateMap<Sale, GetSaleResult>();
             CreateMap<SaleProduct, GetSaleProductResult>();

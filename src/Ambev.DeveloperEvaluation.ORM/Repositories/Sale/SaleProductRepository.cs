@@ -37,12 +37,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
 
         public async Task<bool> DeleteBySaleIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            SaleProduct? saleProduct = await _context.SaleProducts.FirstOrDefaultAsync(x => x.SaleId == id);
+            IEnumerable<SaleProduct> saleProduct = await _context.SaleProducts.Where(x => x.SaleId == id).ToListAsync(cancellationToken);
 
-            if (saleProduct is null)
+            if (saleProduct is null || saleProduct.Count() == 0)
                 return false;
 
-            _context.SaleProducts.Remove(saleProduct);
+            _context.SaleProducts.RemoveRange(saleProduct);
             _context.SaveChanges();
             return true;
         }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpsertSale
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale
 {
-    public class UpsertSaleResponse
+    public class UpdateSaleResponse
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -15,12 +15,12 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpsertSale
         public decimal Discount { get; set; } = 0;
         public bool Canceled { get; set; }
         public Guid SubsidiaryId { get; set; }
-        public UpsertSaleProductResponse[] Products { get; set; } = new UpsertSaleProductResponse[0];
-        public UpsertSaleCustomerResponse Customer { get; set; } = new();
-        public UpsertSaleSubsidiaryResponse Subsidiary { get; set; } = new();
+        public UpdateSaleProductResponse[] Products { get; set; } = new UpdateSaleProductResponse[0];
+        public UpdateSaleCustomerResponse Customer { get; set; } = new();
+        public UpdateSaleSubsidiaryResponse Subsidiary { get; set; } = new();
 
 
-        public class UpsertSaleProductResponse
+        public class UpdateSaleProductResponse
         {
             public Guid Id { get; set; }
             public Guid SaleId { get; set; }
@@ -37,7 +37,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpsertSale
             public decimal Discount { get; set; }
         }
 
-        public class UpsertSaleCustomerResponse
+        public class UpdateSaleCustomerResponse
         {
             public Guid Id { get; set; }
             public string Username { get; set; } = string.Empty;
@@ -45,7 +45,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpsertSale
             public string Phone { get; set; } = string.Empty;
         }
 
-        public class UpsertSaleSubsidiaryResponse
+        public class UpdateSaleSubsidiaryResponse
         {
             public Guid Id { get; set; }
             public string Name { get; set; } = string.Empty;

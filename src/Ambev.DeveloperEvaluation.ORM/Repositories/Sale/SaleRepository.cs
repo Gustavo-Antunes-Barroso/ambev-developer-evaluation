@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using AutoMapper;
-using System;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
 {
@@ -48,7 +47,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
 
             if (sale is not null)
             {
+                _context.Sales.Entry(sale).State = EntityState.Detached;
                 sale = obj;
+                _context.Sales.Entry(sale).State = EntityState.Modified;
                 await _context.SaveChangesAsync(cancellationToken);
                 return true;
             }
@@ -114,11 +115,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
             return obj;
         }
 
-        public async Task<domainEntity.Sale> MongoDbUpdateAsync(domainEntity.Sale obj, CancellationToken cancellationToken = default)
+        public async Task<bool> MongoDbUpdateAsync(domainEntity.Sale obj, CancellationToken cancellationToken = default)
         {
-            var filter = Builders<domainEntity.Sale>.Filter.Eq("_id", obj.Id);
+            var filter = Builders<domainEntity.Sale>.Filter.Eq("_id", obj.Id.ToString());
             await _collection.ReplaceOneAsync(filter, obj);
-            return obj;
+            return true;
         }
 
         public async Task<bool> MongoDbDeleteAsync(string id, CancellationToken cancellationToken = default)

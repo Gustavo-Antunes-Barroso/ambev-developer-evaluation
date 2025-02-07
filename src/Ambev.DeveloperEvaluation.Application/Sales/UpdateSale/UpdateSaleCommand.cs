@@ -2,9 +2,9 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
+namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 {
-    public class CreateSaleCommand : IRequest<UpsertSaleResult>
+    public class UpdateSaleCommand : IRequest<UpsertSaleResult>
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -15,10 +15,10 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         public decimal TotalAmountWithDiscount { get; set; }
         public bool Canceled { get; set; }
         public Guid SubsidiaryId { get; set; }
-        public CreateSaleProductCommand[] Products { get; set; } = new CreateSaleProductCommand[0];
+        public UpdateSaleProductCommand[] Products { get; set; } = new UpdateSaleProductCommand[0];
     }
 
-    public class CreateSaleProductCommand
+    public class UpdateSaleProductCommand
     {
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }

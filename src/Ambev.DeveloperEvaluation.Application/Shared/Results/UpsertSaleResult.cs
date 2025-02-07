@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
+namespace Ambev.DeveloperEvaluation.Application.Shared.Results
 {
-    public class CreateSaleResult
+    public class UpsertSaleResult
     {
+        public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public Guid CustomerId { get; set; }
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]
@@ -14,12 +15,12 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         public decimal Discount { get; set; } = 0;
         public bool Canceled { get; set; }
         public Guid SubsidiaryId { get; set; }
-        public CreateSaleProductResult[] Products { get; set; } = new CreateSaleProductResult[0];
-        public CreateSaleCustomerResult Customer { get; set; } = new();
-        public CreateSaleSubsidiaryResult Subsidiary { get; set; } = new();
+        public UpsertSaleProductResult[] Products { get; set; } = new UpsertSaleProductResult[0];
+        public UpsertSaleCustomerResult Customer { get; set; } = new();
+        public UpsertSaleSubsidiaryResult Subsidiary { get; set; } = new();
     }
 
-    public class CreateSaleProductResult
+    public class UpsertSaleProductResult
     {
         public Guid Id { get; set; }
         public Guid SaleId { get; set; }
@@ -36,7 +37,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         public decimal Discount { get; set; }
     }
 
-    public class CreateSaleCustomerResult
+    public class UpsertSaleCustomerResult
     {
         public Guid Id { get; set; }
         public string Username { get; set; } = string.Empty;
@@ -44,7 +45,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         public string Phone { get; set; } = string.Empty;
     }
 
-    public class CreateSaleSubsidiaryResult
+    public class UpsertSaleSubsidiaryResult
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

@@ -1,11 +1,12 @@
-﻿using FluentValidation;
+﻿using Ambev.DeveloperEvaluation.Application.Shared.Commands;
+using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
+namespace Ambev.DeveloperEvaluation.Application.Shared.Validator
 {
-    public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
+    public class UpsertSaleCommandValidator : AbstractValidator<UpsertSaleCommand>
     {
-        public CreateSaleCommandValidator()
-        { 
+        public UpsertSaleCommandValidator()
+        {
             RuleFor(x => x.Products)
                 .NotEmpty()
                 .NotNull()

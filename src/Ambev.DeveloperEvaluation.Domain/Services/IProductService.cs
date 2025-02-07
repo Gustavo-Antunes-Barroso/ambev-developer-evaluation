@@ -1,6 +1,11 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Services
+﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
+
+namespace Ambev.DeveloperEvaluation.Domain.Services
 {
-    internal interface IProductService
-    {//TODO: Revisar necessidade
+    public interface IProductService<T> where T : class
+    {
+        Task<SaleProduct[]> GetAndValidateProducts(T command, CancellationToken cancellationToken);
+        void CalculateProductsValues(SaleProduct[] products, decimal discount, CancellationToken cancellationToken);
+        void ValidateClientValues(T command, Sale sale);
     }
 }
