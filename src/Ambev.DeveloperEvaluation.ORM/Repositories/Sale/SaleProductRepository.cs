@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -67,9 +68,10 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
 
             if (saleProduct is null)
                 return false;
-
+            _context.SaleProducts.Entry(saleProduct).State = EntityState.Detached;
             saleProduct = obj;
-            _context.SaveChanges();
+            _context.SaleProducts.Entry(saleProduct).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return true;
         }
     }

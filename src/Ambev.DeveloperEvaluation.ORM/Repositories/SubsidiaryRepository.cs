@@ -45,9 +45,10 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
 
             if (subsidiary is null)
                 return false;
-
+            _context.Subsidiaries.Entry(subsidiary).State = EntityState.Detached;
             subsidiary = obj;
-            _context.SaveChanges();
+            _context.Subsidiaries.Entry(subsidiary).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return true;
         }
     }
