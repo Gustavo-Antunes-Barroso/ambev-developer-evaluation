@@ -8,6 +8,7 @@ using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using Serilog;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
@@ -35,6 +36,11 @@ public class Program
                     b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
                 )
             );
+
+            builder.Services.AddSingleton<IMongoClient, MongoClient>(s =>
+            {
+                return new MongoClient(builder.Configuration.GetConnectionString("MongoDbConnection"));
+            });
 
             builder.Services.AddJwtAuthentication(builder.Configuration);
 

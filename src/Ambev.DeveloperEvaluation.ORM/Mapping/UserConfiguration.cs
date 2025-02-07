@@ -7,7 +7,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("userprofile");
+        builder.ToTable("user_profile");
 
         builder.HasKey(u => u.Id);
         builder.Property(u => u.Id)
