@@ -1,7 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Shared.Commands;
 using AutoBogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest.CommomData
+namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData
 {
     public static class UpsertSaleCommandData
     {

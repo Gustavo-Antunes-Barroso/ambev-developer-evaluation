@@ -13,7 +13,7 @@ namespace Ambev.DeveloperEvaluation.Application.Services
         private readonly IProductRepository _productRepository = productRepository;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<SaleProduct[]> GetAndValidateProducts(UpsertSaleCommand command, CancellationToken cancellationToken)
+        public async Task<SaleProduct[]> GetAndValidateUpsertSaleProducts(UpsertSaleCommand command, CancellationToken cancellationToken)
         {
             List<SaleProduct> productsResponse = new List<SaleProduct>();
             List<string> productsNotFound = new List<string>();

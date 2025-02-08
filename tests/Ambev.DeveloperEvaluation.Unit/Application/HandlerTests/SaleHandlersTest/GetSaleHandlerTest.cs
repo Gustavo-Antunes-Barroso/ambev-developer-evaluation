@@ -1,39 +1,31 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest.CommomData;
-using AutoMapper;
+using Ambev.DeveloperEvaluation.Unit.Application.Base;
+using Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData;
 using FluentValidation;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest
+namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTest
 {
-    public class GetSaleHandlerTest
+    public class GetSaleHandlerTest : TestBase
     {
         private readonly GetSaleHandler _hander;
-        private readonly ISaleRepository _saleRepository;
-        private readonly ISaleProductRepository _saleProductRepository;
-        private readonly IMapper _mapper;
-
+        private Sale sale;
         public GetSaleHandlerTest()
         {
-            _saleRepository = Substitute.For<ISaleRepository>();
-            _saleProductRepository = Substitute.For<ISaleProductRepository>();
-            _mapper = Substitute.For<IMapper>();
-
             _hander = new GetSaleHandler(_saleRepository, _saleProductRepository, _mapper);
+            sale = SaleEntityData.GenerateRandomSaleData();
         }
 
         [Fact]
         public async Task GetCompleteSaleById_ReturnSale_Success_Async()
         {
-            Sale sale = SaleEntityData.GenerateRandomSaleData();
+
             _saleRepository.MongoDbGetAsync(Arg.Any<string>(), Arg.Any<CancellationToken>()).ReturnsNull();
             _saleRepository.GetCompleteSaleByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(sale);
-
-            _mapper.Map<GetSaleResult>(sale).Returns(new GetSaleResult());
 
             var result = await _hander.Handle(new GetSaleCommand { Id = Guid.NewGuid() }, new CancellationToken(false));
 
@@ -44,9 +36,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest
         [Fact]
         public async Task MongoDbGetAsync_ReturnSale_Success_Async()
         {
-            Sale sale = SaleEntityData.GenerateRandomSaleData();
             _saleRepository.MongoDbGetAsync(Arg.Any<string>(), Arg.Any<CancellationToken>()).Returns(sale);
-            _mapper.Map<GetSaleResult>(sale).Returns(new GetSaleResult());
 
             var result = await _hander.Handle(new GetSaleCommand { Id = Guid.NewGuid() }, new CancellationToken(false));
 

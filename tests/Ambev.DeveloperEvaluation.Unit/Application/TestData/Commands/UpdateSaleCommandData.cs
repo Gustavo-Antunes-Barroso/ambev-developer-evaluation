@@ -1,7 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using AutoBogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest.Commands
+namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Commands
 {
     public static class UpdateSaleCommandData
     {

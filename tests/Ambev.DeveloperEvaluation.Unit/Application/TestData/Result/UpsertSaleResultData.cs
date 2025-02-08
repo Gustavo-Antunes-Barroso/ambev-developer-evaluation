@@ -1,7 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Shared.Results;
 using AutoBogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest.Result
+namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Result
 {
     public static class UpsertSaleResultData
     {

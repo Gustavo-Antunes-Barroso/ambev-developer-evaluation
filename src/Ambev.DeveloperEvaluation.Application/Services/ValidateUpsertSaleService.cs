@@ -28,7 +28,7 @@ namespace Ambev.DeveloperEvaluation.Application.Services
 
             User customer = await _userService.GetAndValidateUser(command.CustomerId, cancellationToken);
             Subsidiary subsidiary = await _subsidiaryService.GetAndValidateSubsidiary(command.SubsidiaryId, cancellationToken);
-            SaleProduct[] products = await _productService.GetAndValidateProducts(command, cancellationToken);
+            SaleProduct[] products = await _productService.GetAndValidateUpsertSaleProducts(command, cancellationToken);
 
             Sale sale = _mapper.Map<Sale>(command);
 

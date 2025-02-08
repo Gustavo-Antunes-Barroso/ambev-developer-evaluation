@@ -1,23 +1,17 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
-using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.ORM.Repositories.Sale;
+using Ambev.DeveloperEvaluation.Unit.Application.Base;
 using FluentValidation;
 using NSubstitute;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest
+namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTest
 {
-    public class DeleteSaleHandlerTest
+    public class DeleteSaleHandlerTest : TestBase
     {
         private readonly DeleteSaleHandler _handler;
-        private readonly ISaleRepository _saleRepository;
-        private readonly ISaleProductRepository _saleProductRepository;
 
         public DeleteSaleHandlerTest()
         {
-            _saleRepository = Substitute.For<ISaleRepository>();
-            _saleProductRepository = Substitute.For<ISaleProductRepository>();
-
             _saleRepository.MongoDbDeleteAsync(Arg.Any<string>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(true));
             _saleRepository.DeleteAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(true));
             _saleProductRepository.DeleteAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(true));
@@ -30,7 +24,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.SaleHandlersTest
         {
             DeleteSaleCommand command = new DeleteSaleCommand() { Id = Guid.NewGuid() };
             CancellationToken cancellationToken = new CancellationToken(false);
-            
+
             var result = await _handler.Handle(command, cancellationToken);
             Assert.True(result.Sucess);
         }
