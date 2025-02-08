@@ -18,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Services
 
         public ProductServiceTest()
         {
-            _service = new ProductService(_productRepository, _mapper);
+            _service = new (_productRepository, _mapper);
             command = UpsertSaleCommandData.GenerateValidRandomUpsertSaleCommand();
         }
 
@@ -26,7 +26,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Services
         public async Task GetAndValidateProducts_ReturnSuccess_Async()
         {
             _productRepository.GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(new Product() { Id = Guid.NewGuid() });
-            SaleProduct[] result = await _service.GetAndValidateUpsertSaleProducts(command, new CancellationToken(false));
+            SaleProduct[] result = await _service.GetAndValidateUpsertSaleProducts(command, cancellationToken);
 
             Assert.NotNull(result);
             Assert.NotEmpty(result);
@@ -38,14 +38,14 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Services
             _productRepository.GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNull();
 
             await Assert.ThrowsAnyAsync<KeyNotFoundException>(() 
-                => _service.GetAndValidateUpsertSaleProducts(command, new CancellationToken(false)));
+                => _service.GetAndValidateUpsertSaleProducts(command, cancellationToken));
         }
 
         [Fact]
         public void CalculateProductsValues_Success()
         {
             var products = SaleProductEntityData.GenerateRandomListSaleProductData();
-            _service.CalculateProductsValues(products, 10, new CancellationToken(false));
+            _service.CalculateProductsValues(products, 10, cancellationToken);
 
             Assert.True(!products.Any(x => x.Discount < 0));
             Assert.True(!products.Any(x => x.TotalAmount < 0));

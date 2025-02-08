@@ -13,7 +13,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Services
 
         public SubsidiaryServiceTest()
         { 
-            _service = new SubsidiaryService(_subsidiaryRepository); 
+            _service = new (_subsidiaryRepository); 
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Services
         {
             _subsidiaryRepository.GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(new Subsidiary());
 
-            Subsidiary subsidiary = await _service.GetAndValidateSubsidiary(Guid.NewGuid(), new CancellationToken(false));
+            Subsidiary subsidiary = await _service.GetAndValidateSubsidiary(Guid.NewGuid(), cancellationToken);
             Assert.NotNull(subsidiary);
         }
 
@@ -30,7 +30,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Services
         {
             _subsidiaryRepository.GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNull();
 
-            await Assert.ThrowsAsync<KeyNotFoundException>(() => _service.GetAndValidateSubsidiary(Guid.NewGuid(), new CancellationToken(false)));
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => _service.GetAndValidateSubsidiary(Guid.NewGuid(), cancellationToken));
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
         public async Task DeleteSale_ReturnSuccess_Async()
         {
             DeleteSaleCommand command = new DeleteSaleCommand() { Id = Guid.NewGuid() };
-            CancellationToken cancellationToken = new CancellationToken(false);
 
             var result = await _handler.Handle(command, cancellationToken);
             Assert.True(result.Sucess);
@@ -33,7 +32,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
         public async Task DeleteSale_ReturnValidationException_Async()
         {
             DeleteSaleCommand command = new DeleteSaleCommand() { Id = Guid.Empty };
-            CancellationToken cancellationToken = new CancellationToken(false);
 
             await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(command, cancellationToken));
         }

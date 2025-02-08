@@ -14,7 +14,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
         public readonly IProductRepository _productRepository;
         public readonly IValidateUpsertSaleService<UpsertSaleCommand> _validateUpsertSaleService;
         public readonly ISubsidiaryRepository _subsidiaryRepository;
+        public readonly IUserRepository _userRepository;
         public readonly IMapper _mapper;
+        public readonly CancellationToken cancellationToken;
 
         public TestBase()
         {
@@ -23,12 +25,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
             _productRepository = Substitute.For<IProductRepository>();
             _validateUpsertSaleService = Substitute.For<IValidateUpsertSaleService<UpsertSaleCommand>>();
             _subsidiaryRepository = Substitute.For<ISubsidiaryRepository>();
+            _userRepository = Substitute.For<IUserRepository>();
 
             _mapper = new MapperConfiguration(cfg => 
             { 
                 cfg.AddProfile<SaleProfile>();
                 cfg.AddProfile<WebApi.Features.Sales.Mapping.SaleProfile>();
             }).CreateMapper();
+
+            cancellationToken = new CancellationToken(false);
         }
     }
 }

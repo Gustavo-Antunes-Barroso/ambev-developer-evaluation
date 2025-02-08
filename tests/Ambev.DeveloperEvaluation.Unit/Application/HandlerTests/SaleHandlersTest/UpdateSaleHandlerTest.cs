@@ -33,7 +33,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
         {
             _validateUpsertSaleService.ValidateUpsertSaleAsync(Arg.Any<UpsertSaleCommand>(), Arg.Any<CancellationToken>()).Returns(sale);
 
-            var result = await _handler.Handle(command, new CancellationToken(false));
+            var result = await _handler.Handle(command, cancellationToken);
 
             Assert.NotEqual(Guid.Empty, result.Id);
             Assert.IsType<Guid>(result.Id);
@@ -46,7 +46,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
                 .Returns(Task.FromException<Sale>(new InvalidOperationException($"Sale total amount {command.TotalAmount} is wrong!")));
 
             await Assert.ThrowsAsync<InvalidOperationException>(
-                () => _handler.Handle(command, new CancellationToken(false)));
+                () => _handler.Handle(command, cancellationToken));
         }
     }
 }
