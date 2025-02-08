@@ -13,6 +13,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
         public readonly ISaleProductRepository _saleProductRepository;
         public readonly IProductRepository _productRepository;
         public readonly IValidateUpsertSaleService<UpsertSaleCommand> _validateUpsertSaleService;
+        public readonly ISubsidiaryRepository _subsidiaryRepository;
         public readonly IMapper _mapper;
 
         public TestBase()
@@ -21,6 +22,8 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
             _saleProductRepository = Substitute.For<ISaleProductRepository>();
             _productRepository = Substitute.For<IProductRepository>();
             _validateUpsertSaleService = Substitute.For<IValidateUpsertSaleService<UpsertSaleCommand>>();
+            _subsidiaryRepository = Substitute.For<ISubsidiaryRepository>();
+
             _mapper = new MapperConfiguration(cfg => 
             { 
                 cfg.AddProfile<SaleProfile>();
