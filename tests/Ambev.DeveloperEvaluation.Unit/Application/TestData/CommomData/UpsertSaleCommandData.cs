@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Shared.Commands;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoBogus;
 using Bogus;
 
@@ -8,14 +9,14 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData
     {
         public static UpsertSaleCommand GenerateValidRandomUpsertSaleCommand()
         {
-            Faker<UpsertSaleCommand> faker = new Faker<UpsertSaleCommand>()
-                .RuleFor(x => x.Products, x 
-                => x.Random.ListItems(GenerateValidRandomListUpsertSaleProductCommand(), 3));
+            Faker<UpsertSaleCommand> faker = new Faker<UpsertSaleCommand>();
 
-            return AutoFaker.Generate<UpsertSaleCommand>();
+            var command =  AutoFaker.Generate<UpsertSaleCommand>();
+            command.Products = GenerateValidRandomListUpsertSaleProductCommand();
+            return command;
         }
 
-        private static List<UpsertSaleProductCommand> GenerateValidRandomListUpsertSaleProductCommand()
+        private static UpsertSaleProductCommand[] GenerateValidRandomListUpsertSaleProductCommand()
         {
             Faker<UpsertSaleProductCommand> faker = new Faker<UpsertSaleProductCommand>()
                 .RuleFor(x => x.Quantity, x => x.Random.Number(1, 20))
@@ -24,8 +25,12 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData
                 .RuleFor(x => x.TotalAmount, x => x.Random.Decimal(10, 200))
                 .RuleFor(x => x.TotalAmountWithDiscount, x => x.Random.Decimal(10, 200));
 
-            var productCommands = new List<UpsertSaleProductCommand>{ faker.Generate(), faker.Generate(), faker.Generate() };
-            return productCommands;
+            return new[]
+            { 
+                faker.Generate(), 
+                faker.Generate(), 
+                faker.Generate() 
+            };
         }
     }
 }
