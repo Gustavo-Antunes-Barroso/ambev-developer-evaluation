@@ -3,7 +3,7 @@ using Ambev.DeveloperEvaluation.Application.Shared.Commands;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Unit.Application.Base;
-using Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData;
+using Ambev.DeveloperEvaluation.Unit.Application.TestData.Commands;
 using FluentValidation;
 using NSubstitute;
 using Xunit;

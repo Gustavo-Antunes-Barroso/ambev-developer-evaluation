@@ -3,7 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoBogus;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData
+namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Commands
 {
     public static class UpsertSaleCommandData
     {
@@ -11,7 +11,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData
         {
             Faker<UpsertSaleCommand> faker = new Faker<UpsertSaleCommand>();
 
-            var command =  AutoFaker.Generate<UpsertSaleCommand>();
+            var command = AutoFaker.Generate<UpsertSaleCommand>();
             command.Products = GenerateValidRandomListUpsertSaleProductCommand();
             return command;
         }
@@ -26,10 +26,10 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData
                 .RuleFor(x => x.TotalAmountWithDiscount, x => x.Random.Decimal(10, 200));
 
             return new[]
-            { 
-                faker.Generate(), 
-                faker.Generate(), 
-                faker.Generate() 
+            {
+                faker.Generate(),
+                faker.Generate(),
+                faker.Generate()
             };
         }
     }
