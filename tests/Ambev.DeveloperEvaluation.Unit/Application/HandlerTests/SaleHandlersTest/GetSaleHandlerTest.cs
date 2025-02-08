@@ -2,7 +2,7 @@
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Base;
-using Ambev.DeveloperEvaluation.Unit.Application.TestData.CommomData;
+using Ambev.DeveloperEvaluation.Unit.Application.TestData.Entities;
 using FluentValidation;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;

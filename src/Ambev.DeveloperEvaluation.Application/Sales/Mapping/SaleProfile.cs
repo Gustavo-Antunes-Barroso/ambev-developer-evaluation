@@ -11,8 +11,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.Mapping
     {
         public SaleProfile()
         {
-            CreateMap<UpsertSaleCommand, Sale>()
-                .ForMember(x => x.Products, opt => opt.Ignore());
+            CreateMap<UpsertSaleCommand, Sale>();
+            CreateMap<UpsertSaleProductCommand, SaleProduct>();
+
             CreateMap<User, SaleCustomer>();
             CreateMap<Subsidiary, SaleSubsidiary>();
             CreateMap<Product, SaleProduct>()
