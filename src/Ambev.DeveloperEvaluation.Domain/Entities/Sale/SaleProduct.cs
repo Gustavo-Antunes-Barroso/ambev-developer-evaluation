@@ -23,15 +23,20 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
         [RegularExpression(@"^(0|-?\d{0,3}(\.\d{0,2})?)$")]
         public decimal Discount { get; set; }
 
-        public void CalculateSale(decimal discount)
+        public void SetDiscount(decimal discount) { Discount = discount; }
+
+        public void CalculateAmount()
         {
-            Discount = discount;
             TotalAmount = MathOperations.RoundDecimalWithTwoPlaces(CalculateTotalAmount());
-            TotalAmountWithDiscount = MathOperations.RoundDecimalWithTwoPlaces(CalculateTotalAmountWithDiscount(TotalAmount));
         }
 
-        private decimal CalculateTotalAmountWithDiscount(decimal total)
-            => total - (total * (Discount / 100));
+        public void CalculateAmountWithDiscount()
+        {
+            if(TotalAmount <= 0)
+                TotalAmount = CalculateTotalAmount();
+
+            TotalAmountWithDiscount = MathOperations.RoundDecimalWithTwoPlaces(TotalAmount - (TotalAmount * (Discount / 100)));
+        }
 
         private decimal CalculateTotalAmount()
             => Price * Quantity;

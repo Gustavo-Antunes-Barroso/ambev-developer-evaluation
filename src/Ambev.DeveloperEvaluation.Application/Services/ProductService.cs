@@ -45,7 +45,9 @@ namespace Ambev.DeveloperEvaluation.Application.Services
         {
             Parallel.ForEach(products, (product, cancellationToken) =>
             {
-                product.CalculateSale(discount);
+                product.SetDiscount(discount);
+                product.CalculateAmount();
+                product.CalculateAmountWithDiscount();
             });
         }
 
