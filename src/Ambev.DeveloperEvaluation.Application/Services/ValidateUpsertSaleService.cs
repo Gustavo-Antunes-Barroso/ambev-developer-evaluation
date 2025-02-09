@@ -33,11 +33,11 @@ namespace Ambev.DeveloperEvaluation.Application.Services
 
             sale.SetCustomer(_mapper.Map<SaleCustomer>(customer))
                 .SetSubsidiary(_mapper.Map<SaleSubsidiary>(subsidiary))
-                .SetProducts(products);
+                .SetProducts(products); //Setting products to calculate discount value
 
             _productService.CalculateProductsValues(products, sale.GetDiscount(), cancellationToken);
 
-            //Update products values
+            //Update products with values calculated
             sale.SetProducts(products)
                 .CalculateSale();
 
