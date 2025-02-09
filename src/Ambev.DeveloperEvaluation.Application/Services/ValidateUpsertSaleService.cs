@@ -2,7 +2,6 @@
 using Ambev.DeveloperEvaluation.Application.Shared.Validator;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
-using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Services;
 using AutoMapper;
 using FluentValidation;
@@ -34,11 +33,11 @@ namespace Ambev.DeveloperEvaluation.Application.Services
 
             sale.SetCustomer(_mapper.Map<SaleCustomer>(customer))
                 .SetSubsidiary(_mapper.Map<SaleSubsidiary>(subsidiary))
-                .SetProducts(products);
+                .SetProducts(products); //Setting products to calculate discount value
 
             _productService.CalculateProductsValues(products, sale.GetDiscount(), cancellationToken);
 
-            //Update products values
+            //Update products with values calculated
             sale.SetProducts(products)
                 .CalculateSale();
 
