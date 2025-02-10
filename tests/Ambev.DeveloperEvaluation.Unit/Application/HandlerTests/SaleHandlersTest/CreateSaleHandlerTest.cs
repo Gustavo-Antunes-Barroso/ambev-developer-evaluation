@@ -24,7 +24,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
             _saleProductRepository.CreateManyAsync(Arg.Any<SaleProduct[]>(), Arg.Any<CancellationToken>()).Returns(new List<SaleProduct>().ToArray());
             _saleRepository.MongoDbCreateAsync(Arg.Any<Sale>(), Arg.Any<CancellationToken>()).Returns(sale);
 
-            _handler = new CreateSaleHandler(_saleRepository, _saleProductRepository, _validateUpsertSaleService, _mapper);
+            _handler = new CreateSaleHandler(_saleRepository, _saleProductRepository, _validateUpsertSaleService, _rabbitMQProducer, _mapper);
         }
 
         [Fact]

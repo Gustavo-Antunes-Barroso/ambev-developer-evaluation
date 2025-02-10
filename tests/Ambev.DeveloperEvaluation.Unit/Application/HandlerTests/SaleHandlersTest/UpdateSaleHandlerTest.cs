@@ -22,7 +22,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
             _saleProductRepository.CreateManyAsync(Arg.Any<SaleProduct[]>(), Arg.Any<CancellationToken>()).Returns(new List<SaleProduct>().ToArray());
             _saleRepository.MongoDbUpdateAsync(Arg.Any<Sale>(), Arg.Any<CancellationToken>()).Returns(true);
 
-            _handler = new UpdateSaleHandler(_saleRepository, _saleProductRepository, _validateUpsertSaleService, _mapper);
+            _handler = new UpdateSaleHandler(_saleRepository, _saleProductRepository, _validateUpsertSaleService, _rabbitMQProducer, _mapper);
 
             command = UpdateSaleCommandData.GenerateValidRandomUpdateSaleCommand();
             sale = SaleEntityData.GenerateRandomSaleData();
