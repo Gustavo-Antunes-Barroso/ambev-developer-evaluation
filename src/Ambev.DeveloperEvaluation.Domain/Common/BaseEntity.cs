@@ -1,9 +1,13 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Validation;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Ambev.DeveloperEvaluation.Domain.Common;
 
 public class BaseEntity : IComparable<BaseEntity>
 {
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public Guid Id { get; set; }
 
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()

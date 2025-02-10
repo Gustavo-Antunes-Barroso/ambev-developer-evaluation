@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -9,9 +10,14 @@ namespace Ambev.DeveloperEvaluation.ORM;
 public class DefaultContext : DbContext
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<SaleProduct> SaleProducts { get; set; }
+    public DbSet<Subsidiary> Subsidiaries { get; set; }
 
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +26,7 @@ public class DefaultContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 }
+
 public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
 {
     public DefaultContext CreateDbContext(string[] args)
