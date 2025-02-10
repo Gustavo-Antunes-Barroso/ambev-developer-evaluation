@@ -5,7 +5,7 @@ Este projeto demonstra uma aplicação .NET Core 8 que utiliza um banco de dados
 
 ## Tecnologias
 * **.NET Core 8:** Framework para desenvolvimento de aplicações web.
-* **RDS Postegres:** O banco de dados SQL utilizado neste projeto está hospedado na AWS.
+* **RDS Postgres:** O banco de dados SQL utilizado neste projeto está hospedado na AWS.
 * **MongoDB:** O banco de dados NoSQL utilizado neste projeto está hospedado no Atlas Cloud.
 * **Testes Unitários:** Testes que verificam o comportamento de unidades individuais de código (classes, métodos, etc.).
 * **Testes de Integração:** Testes que verificam a interação entre diferentes partes do sistema (camadas, módulos, etc.).
