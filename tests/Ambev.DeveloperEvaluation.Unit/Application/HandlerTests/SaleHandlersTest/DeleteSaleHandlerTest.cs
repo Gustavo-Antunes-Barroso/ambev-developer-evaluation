@@ -16,7 +16,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.HandlerTests.SaleHandlersTe
             _saleRepository.DeleteAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(true));
             _saleProductRepository.DeleteAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(true));
 
-            _handler = new DeleteSaleHandler(_saleRepository, _saleProductRepository);
+            _handler = new DeleteSaleHandler(_saleRepository, _saleProductRepository, _rabbitMQProducer);
         }
 
         [Fact]

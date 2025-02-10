@@ -9,12 +9,13 @@ using MediatR;
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 {
     public class UpdateSaleHandler(ISaleRepository saleRepository, ISaleProductRepository saleProductRepository,
-       IValidateUpsertSaleService<UpsertSaleCommand> validateUpsertSaleService, IMapper mapper)
+       IValidateUpsertSaleService<UpsertSaleCommand> validateUpsertSaleService, IRabbitMQProducer<Sale> rabbitMQProducer, IMapper mapper)
        : IRequestHandler<UpdateSaleCommand, UpsertSaleResult>
     {
         private readonly ISaleRepository _saleRepository = saleRepository;
         private readonly ISaleProductRepository _saleProductRepository = saleProductRepository;
         private readonly IValidateUpsertSaleService<UpsertSaleCommand> _validateUpsertSaleService = validateUpsertSaleService;
+        private readonly IRabbitMQProducer<Sale> _rabbitMQProducer = rabbitMQProducer;
         private readonly IMapper _mapper = mapper;
 
         public async Task<UpsertSaleResult> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
@@ -36,7 +37,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 
             //Update MongoDB
             await _saleRepository.MongoDbUpdateAsync(sale, cancellationToken);
-                
+            await _rabbitMQProducer.SendMessage(sale, HttpMethod.Put.ToString());
             return _mapper.Map<UpsertSaleResult>(sale);
         }
     }

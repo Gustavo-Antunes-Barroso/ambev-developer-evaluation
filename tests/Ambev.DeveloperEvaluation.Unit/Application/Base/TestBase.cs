@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.Mapping;
 using Ambev.DeveloperEvaluation.Application.Services;
 using Ambev.DeveloperEvaluation.Application.Shared.Commands;
+using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Services;
 using AutoMapper;
@@ -22,6 +23,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
         public readonly IValidateUpsertSaleService<UpsertSaleCommand> _validateUpsertSaleService;
         public readonly ISubsidiaryRepository _subsidiaryRepository;
         public readonly IUserRepository _userRepository;
+        public readonly IRabbitMQProducer<Sale> _rabbitMQProducer;
 
         //Mapper
         public readonly IMapper _mapper;
@@ -43,7 +45,8 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
             _validateUpsertSaleService = Substitute.For<IValidateUpsertSaleService<UpsertSaleCommand>>();
             _subsidiaryRepository = Substitute.For<ISubsidiaryRepository>();
             _userRepository = Substitute.For<IUserRepository>();
-
+            _rabbitMQProducer = Substitute.For<IRabbitMQProducer<Sale>>();
+            _rabbitMQProducer.SendMessage(Arg.Any<Sale>(), Arg.Any<string>()).Returns(true);
             //Mapper
             _mapper = new MapperConfiguration(cfg => 
             { 
