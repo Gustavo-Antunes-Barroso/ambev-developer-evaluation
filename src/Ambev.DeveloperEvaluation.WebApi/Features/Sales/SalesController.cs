@@ -23,8 +23,15 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         private readonly IMediator _mediator = mediator;
         private readonly IMapper _mapper = mapper;
 
-
+        /// <summary>
+        /// Create sale
+        /// </summary>
+        /// <param name="CreateSaleRequest"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Sale created</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(ApiResponseWithData<UpsertSaleResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateSaleAsync([FromBody] CreateSaleRequest request, CancellationToken cancellationToken)
         {
             CreateSaleRequestValidator validator = new();
@@ -40,7 +47,16 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             return Ok(response);
         }
 
+        /// <summary>
+        /// Update sale
+        /// </summary>
+        /// <param name="UpdateSaleRequest"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Sale updated</returns>
         [HttpPut]
+        [ProducesResponseType(typeof(ApiResponseWithData<ApiResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateSaleAsync([FromBody] UpdateSaleRequest request, CancellationToken cancellationToken)
         {
             UpdateSaleRequestValidator validator = new();
@@ -55,7 +71,16 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             return Ok(response);
         }
 
+        /// <summary>
+        /// Get existing sale
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Sale</returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ApiResponseWithData<GetSaleResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSaleByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             GetSaleRequest request = new GetSaleRequest() { Id = id };
@@ -72,7 +97,16 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             return Ok(response);
         }
 
+        /// <summary>
+        /// Delete existing sale
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ApiResponseWithData<ApiResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteSaleAsync([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             DeleteSaleRequest request = new DeleteSaleRequest() { Id = id };
