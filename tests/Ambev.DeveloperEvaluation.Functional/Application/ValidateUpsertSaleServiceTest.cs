@@ -1,5 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.Mapping;
-using Ambev.DeveloperEvaluation.Application.Services;
+﻿using Ambev.DeveloperEvaluation.Application.Services;
 using Ambev.DeveloperEvaluation.Application.Shared.Commands;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Domain.Entities;
@@ -8,6 +7,9 @@ using AutoMapper;
 using NSubstitute;
 using Xunit;
 using Ambev.DeveloperEvaluation.Common.Util;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 
 namespace Ambev.DeveloperEvaluation.Functional.Application
 {
@@ -26,8 +28,16 @@ namespace Ambev.DeveloperEvaluation.Functional.Application
             _productService = Substitute.For<IProductService<UpsertSaleCommand>>();
             _mapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<SaleProfile>();
-                cfg.AddProfile<WebApi.Features.Sales.Mapping.SaleProfile>();
+                //Application
+                cfg.AddProfile<CreateSaleProfile>();
+                cfg.AddProfile<UpdateSaleProfile>();
+                cfg.AddProfile<GetSaleProfile>();
+
+                //Api
+                cfg.AddProfile<WebApi.Features.Sales.CreateSale.CreateSaleProfile>();
+                cfg.AddProfile<WebApi.Features.Sales.DeleteSale.DeleteSaleProfile>();
+                cfg.AddProfile<WebApi.Features.Sales.UpdateSale.UpdateSaleProfile>();
+                cfg.AddProfile<WebApi.Features.Sales.GetSale.GetSaleProfile>();
             }).CreateMapper();
 
 

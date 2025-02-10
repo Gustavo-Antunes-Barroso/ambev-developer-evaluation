@@ -1,5 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.Mapping;
-using Ambev.DeveloperEvaluation.Application.Services;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Ambev.DeveloperEvaluation.Application.Shared.Commands;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sale;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
@@ -50,8 +51,16 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Base
             //Mapper
             _mapper = new MapperConfiguration(cfg => 
             { 
-                cfg.AddProfile<SaleProfile>();
-                cfg.AddProfile<WebApi.Features.Sales.Mapping.SaleProfile>();
+                //Application
+                cfg.AddProfile<CreateSaleProfile>();
+                cfg.AddProfile<UpdateSaleProfile>();
+                cfg.AddProfile<GetSaleProfile>();
+
+                //Api
+                cfg.AddProfile<WebApi.Features.Sales.CreateSale.CreateSaleProfile>();
+                cfg.AddProfile<WebApi.Features.Sales.DeleteSale.DeleteSaleProfile>();
+                cfg.AddProfile<WebApi.Features.Sales.UpdateSale.UpdateSaleProfile>();
+                cfg.AddProfile<WebApi.Features.Sales.GetSale.GetSaleProfile>();
             }).CreateMapper();
 
             //CancellationToken
