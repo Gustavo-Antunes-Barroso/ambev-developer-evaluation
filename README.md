@@ -1,86 +1,43 @@
 # Developer Evaluation Project
 
-`READ CAREFULLY`
+# Projeto .NET Core 8 com Banco de Dados AWS e Testes
+Este projeto demonstra uma aplicação .NET Core 8 que utiliza um banco de dados hospedado na AWS e possui uma estrutura de testes abrangente, incluindo: testes unitários, de integração e funcionais.
 
-## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
+## Tecnologias
+* **.NET Core 8:** Framework para desenvolvimento de aplicações web*
+**RDS Postegres:** O banco de dados SQL utilizado neste projeto está hospedado na AWS.*
+**MongoDB:** O banco de dados NoSQL utilizado neste projeto está hospedado no Atlas Cloud.*
+**Testes Unitários:** Testes que verificam o comportamento de unidades individuais de código (classes, métodos, etc.).*
+**Testes de Integração:** Testes que verificam a interação entre diferentes partes do sistema (camadas, módulos, etc.).*
+**Testes Funcionais:** Testes que verificam se o sistema como um todo atende aos requisitos funcionais.
 
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
+## Configuração
+1. **Pré-requisitos:**
+* .NET Core 8 SDK instalado.
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
+2. **Configuração do Banco de Dados:**
+* As configurações de acesso ao banco de dados estão localizadas no arquivo `appsettings.json`.
+* Certifique-se de que as credenciais e a URL estejam corretas.
 
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
+3. **Execução do Projeto:**
+* Clone o repositório.
+* Abra o projeto no Visual Studio ou em outra IDE compatível.
+* Restaure os pacotes NuGet: `dotnet restore`
+* Execute o projeto: `dotnet run`
 
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+## Estrutura do Projeto
+O projeto está organizado em camadas para facilitar a manutenção e a escalabilidade:
+* **Camada de Apresentação (API):** Contém os controladores e os endpoints da API.* 
+**Camada de Negócios:** Contém a lógica de negócios da aplicação.* 
+**Camada de Acesso a Dados:** Contém a lógica de acesso ao banco de dados.
 
-* Sale number
-* Date when the sale was made
-* Customer
-* Total sale amount
-* Branch where the sale was made
-* Products
-* Quantities
-* Unit prices
-* Discounts
-* Total amount for each item
-* Cancelled/Not Cancelled
+## Testes
+O projeto possui três camadas de testes:
+* **Testes Unitários:** 
+Os testes unitários estão localizados na pasta `ambev-developer-evaluation\tests\Ambev.DeveloperEvaluation.Unit`.* 
+**Testes de Integração:** Os testes de integração estão localizados na pasta `ambev-developer-evaluation\tests\Ambev.DeveloperEvaluation.Integration`.* 
+**Testes Funcionais:** Os testes funcionais estão localizados na pasta `ambev-developer-evaluation\tests\Ambev.DeveloperEvaluation.Functional`.
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
-
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
-
-### Business Rules
-
-* Purchases above 4 identical items have a 10% discount
-* Purchases between 10 and 20 identical items have a 20% discount
-* It's not possible to sell above 20 identical items
-* Purchases below 4 items cannot have a discount
-
-These business rules define quantity-based discounting tiers and limitations:
-
-1. Discount Tiers:
-   - 4+ items: 10% discount
-   - 10-20 items: 20% discount
-
-2. Restrictions:
-   - Maximum limit: 20 items per product
-   - No discounts allowed for quantities below 4 items
-
-## Overview
-This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 
-
-See [Overview](/.doc/overview.md)
-
-## Tech Stack
-This section lists the key technologies used in the project, including the backend, testing, frontend, and database components. 
-
-See [Tech Stack](/.doc/tech-stack.md)
-
-## Frameworks
-This section outlines the frameworks and libraries that are leveraged in the project to enhance development productivity and maintainability. 
-
-See [Frameworks](/.doc/frameworks.md)
-
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
-
-## Project Structure
-This section describes the overall structure and organization of the project files and directories. 
-
-See [Project Structure](/.doc/project-structure.md)
+## Execução dos Testes
+Os testes podem ser executados no Visual Studio ou através da linha de comando:
+* **Visual Studio:** Abra o Test Explorer e execute os testes desejados.* **Linha de Comando:** `dotnet test`
