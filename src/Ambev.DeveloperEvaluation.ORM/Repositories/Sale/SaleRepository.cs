@@ -24,6 +24,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories.Sale
         #region <<<Postgres>>>
         public async Task<domainEntity.Sale> CreateAsync(domainEntity.Sale obj, CancellationToken cancellationToken = default)
         {
+            if (obj.CreatedAt.Equals(DateTime.MinValue))
+                obj.CreatedAt = DateTime.UtcNow;
             await _context.Sales.AddAsync(obj, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return obj;

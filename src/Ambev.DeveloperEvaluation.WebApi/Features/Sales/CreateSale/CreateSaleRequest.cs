@@ -2,7 +2,7 @@
 {
     public class CreateSaleRequest
     {
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public Guid CustomerId { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal TotalAmountWithDiscount { get; set; }

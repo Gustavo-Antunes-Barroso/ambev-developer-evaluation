@@ -8,7 +8,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sale
 {
     public class Sale : BaseEntity
     {
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         [BsonRepresentation(BsonType.String)]
         public Guid CustomerId { get; set; }
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]

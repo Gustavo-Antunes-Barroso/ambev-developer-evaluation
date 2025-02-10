@@ -7,7 +7,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
     public class CreateSaleCommand : IRequest<UpsertSaleResult>
     {
         public Guid Id { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public Guid CustomerId { get; set; }
         [RegularExpression(@"^(0|-?\d{0,16}(\.\d{0,2})?)$")]
         public decimal TotalAmount { get; set; }
