@@ -26,16 +26,16 @@ namespace Ambev.DeveloperEvaluation.Integration.Features
             CreateSaleRequest request = new()
             {
                 CreatedAt = DateTime.Now,
-                CustomerId = Guid.Parse("1f272660-cd6b-41ca-a6f5-d5c3a1426815"),
+                CustomerId = Guid.Parse("9b2e90d7-9820-4577-9b6a-6d755170a3ca"),
                 TotalAmount = 92.50M,
                 TotalAmountWithDiscount = 74.00M,
                 Canceled = false,
-                SubsidiaryId = Guid.Parse("285ad3df-1849-4436-8880-1362863aa4d0"),
+                SubsidiaryId = Guid.Parse("9c8319d7-04a1-44e9-a0c5-a68e1ee186f5"),
                 Products = new[]
                 {
                     new CreateSaleProductsRequest
                     {
-                        ProductId = Guid.Parse("9c4614d5-e4f8-4ccd-9904-b9741d9484d7"),
+                        ProductId = Guid.Parse("b07a13d5-8b60-4dc5-adc4-a4edb3b4a15c"),
                         Quantity = 10,
                         Price = 9.25M,
                         TotalAmount = 92.50M,
@@ -55,18 +55,18 @@ namespace Ambev.DeveloperEvaluation.Integration.Features
         {
             UpdateSaleRequest request = new()
             {
-                Id = Guid.Parse("25f7a2e8-9618-48cf-a541-342b9dbde89d"),
+                Id = Guid.Parse("f8334a46-f7c0-42ec-a870-1ec31d2d7411"),
                 UpdatedAt = DateTime.Now,
-                CustomerId = Guid.Parse("1f272660-cd6b-41ca-a6f5-d5c3a1426815"),
+                CustomerId = Guid.Parse("9b2e90d7-9820-4577-9b6a-6d755170a3ca"),
                 TotalAmount = 37M,
                 TotalAmountWithDiscount = 37M,
                 Canceled = false,
-                SubsidiaryId = Guid.Parse("285ad3df-1849-4436-8880-1362863aa4d0"),
+                SubsidiaryId = Guid.Parse("9c8319d7-04a1-44e9-a0c5-a68e1ee186f5"),
                 Products = new[]
                 {
                     new UpdateSaleProductsRequest
                     {
-                        ProductId = Guid.Parse("9c4614d5-e4f8-4ccd-9904-b9741d9484d7"),
+                        ProductId = Guid.Parse("b07a13d5-8b60-4dc5-adc4-a4edb3b4a15c"),
                         Quantity = 4,
                         Price = 9.25M,
                         TotalAmount = 37M,
@@ -84,7 +84,7 @@ namespace Ambev.DeveloperEvaluation.Integration.Features
         [Fact]
         public async Task Get_ReturnsSuccess_Async()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"api/sales/{Guid.Parse("25f7a2e8-9618-48cf-a541-342b9dbde89d")}", new CancellationToken(false));
+            HttpResponseMessage response = await _httpClient.GetAsync($"api/sales/{Guid.Parse("f8334a46-f7c0-42ec-a870-1ec31d2d7411")}", new CancellationToken(false));
             Assert.True(response.IsSuccessStatusCode);
         }
 
